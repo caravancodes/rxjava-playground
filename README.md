@@ -1,3 +1,8 @@
+<!-- Eating Ramen -->
+<p align="center">
+  <img width="185px" height="100px" src="https://raw.githubusercontent.com/amirisback/amirisback/master/docs/image/bear-panda/couple/bear-panda-eating-ramen-02.gif">
+</p>
+
 ## Rx Java Playground
 Rx Java Playground, Learning Fun Repo
 
