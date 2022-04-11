@@ -6,14 +6,20 @@ import io.reactivex.rxjava3.disposables.Disposable
 
 
 fun main(args: Array<String>) {
+    observableFromAction()
+    println()
     completableFromAction()
+    println()
+    observableJust()
+    println()
+    observableCreate()
 }
 
 fun completableFromAction() {
     Completable.fromAction {
-        val nilai = "a".toInt()
-    }.doOnSubscribe { println("doOnSubscribe") }
-        .doOnTerminate { println("doOnTerminate") }
+        println("Hello from Completable.fromAction")
+    }.doOnSubscribe { println("showLoading") }
+        .doOnTerminate { println("hideLoading") }
         .subscribe({
             println("Completed")
         }) {
@@ -21,8 +27,32 @@ fun completableFromAction() {
         }
 }
 
+fun observableFromAction() {
+    Observable.fromAction<Int> {
+        println("GJLS Ramadhan")
+    }.doOnSubscribe { println("showLoading") }
+        .doOnTerminate { println("hideLoading") }
+        .subscribe(object : Observer<Int> {
+            override fun onComplete() {
+                println("Completed")
+            }
+
+            override fun onSubscribe(d: Disposable) {
+                println("onSubscribe")
+            }
+
+            override fun onNext(t: Int) {
+                println("onNext $t")
+            }
+
+            override fun onError(e: Throwable) {
+                println("onError")
+            }
+        })
+}
+
 fun observableJust() {
-    Observable.just("Hello World")
+    Observable.just("Hello World", "hello Kotlin")
         .doOnSubscribe { println("showProgress") }
         .doOnTerminate { println("hideProgress") }
         .subscribe(object : Observer<String> {
