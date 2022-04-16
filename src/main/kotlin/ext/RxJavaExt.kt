@@ -2,6 +2,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
+import source.SourceCallback
 
 /*
  * Created by faisalamir on 17/04/22
@@ -16,7 +17,7 @@ import io.reactivex.rxjava3.disposables.Disposable
  *
  */
 
-fun <T : Any> Observable<T>.execute(callback: MainCallback.DataResponse<T>) {
+fun <T : Any> Observable<T>.execute(callback: SourceCallback.DataResponse<T>) {
     doOnSubscribe { callback.showProgress() }
         .doOnTerminate { callback.hideProgress() }
         .subscribe(object : Observer<T> {
@@ -39,7 +40,7 @@ fun <T : Any> Observable<T>.execute(callback: MainCallback.DataResponse<T>) {
         })
 }
 
-fun Completable.execute(callback: MainCallback.StateResponse) {
+fun Completable.execute(callback: SourceCallback.StateResponse) {
     callback.showProgress()
     subscribe({
         callback.hideProgress()

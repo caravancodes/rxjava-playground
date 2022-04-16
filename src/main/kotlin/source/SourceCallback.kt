@@ -1,3 +1,5 @@
+package source
+
 import io.reactivex.rxjava3.disposables.Disposable
 
 /*
@@ -13,7 +15,7 @@ import io.reactivex.rxjava3.disposables.Disposable
  *
  */
 
-interface MainCallback {
+interface SourceCallback {
 
     interface DataResponse<T> {
 

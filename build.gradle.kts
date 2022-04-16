@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     implementation("io.reactivex.rxjava3:rxjava:3.1.4")
+    implementation("io.insert-koin:koin-core:3.2.0-beta-1")
     testImplementation(kotlin("test"))
 }
 

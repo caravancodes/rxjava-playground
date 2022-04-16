@@ -1,3 +1,6 @@
+package source
+
+import execute
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
@@ -16,11 +19,11 @@ import io.reactivex.rxjava3.disposables.Disposable
  *
  */
 
-class MainRepository {
+class RxDataSource {
 
-    fun completableFromAction(callback: MainCallback.StateResponse, action: () -> Unit) {
+    fun completableFromAction(callback: SourceCallback.StateResponse, action: () -> Unit) {
         Completable.fromAction { action() }
-            .execute(object : MainCallback.StateResponse {
+            .execute(object : SourceCallback.StateResponse {
                 override fun onSuccess() {
                     println("completableFromAction : onSuccess")
                     callback.onSuccess()
@@ -49,9 +52,9 @@ class MainRepository {
             })
     }
 
-    fun observableFromAction(callback: MainCallback.StateResponse, action: () -> Unit) {
+    fun observableFromAction(callback: SourceCallback.StateResponse, action: () -> Unit) {
         Observable.fromAction<String> { action() }
-            .execute(object : MainCallback.DataResponse<String> {
+            .execute(object : SourceCallback.DataResponse<String> {
                 override fun onSuccess(data: String) {
                     println("observableFromAction : onSuccess : $data")
                 }
@@ -83,9 +86,9 @@ class MainRepository {
             })
     }
 
-    fun observableJust(callback: MainCallback.DataResponse<String>) {
+    fun observableJust(callback: SourceCallback.DataResponse<String>) {
         Observable.just("Hello World", "Hello Kotlin")
-            .execute(object : MainCallback.DataResponse<String> {
+            .execute(object : SourceCallback.DataResponse<String> {
                 override fun onSuccess(data: String) {
                     println("observableJust : onSuccess : $data")
                     callback.onSuccess(data)
@@ -119,7 +122,7 @@ class MainRepository {
             })
     }
 
-    fun observableCreate(emitData: String, callback: MainCallback.DataResponse<String>) {
+    fun observableCreate(emitData: String, callback: SourceCallback.DataResponse<String>) {
         Observable.create { emitter: ObservableEmitter<String> ->
             try {
                 emitter.onNext(emitData)
@@ -127,7 +130,7 @@ class MainRepository {
             } catch (e: Exception) {
                 emitter.onError(e)
             }
-        }.execute(object : MainCallback.DataResponse<String> {
+        }.execute(object : SourceCallback.DataResponse<String> {
             override fun onSuccess(data: String) {
                 println("observableCreate : onSuccess : $data")
                 callback.onSuccess(data)
