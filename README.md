@@ -6,6 +6,9 @@
 ## Rx Java Playground
 Rx Java Playground, Learning Fun Repo
 
+## Screecshot
+![](docs/image/ss_sample.png?raw=true)
+
 ## Sources Article 
 - https://medium.com/nusanet/pengenalan-rxjava-untuk-pemula-bagian-1-2c9895a73c70
 - https://medium.com/nusanet/pengenalan-rxjava-untuk-pemula-bagian-2-29b843853cd6
