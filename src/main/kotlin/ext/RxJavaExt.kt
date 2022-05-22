@@ -41,14 +41,13 @@ fun <T : Any> Observable<T>.execute(callback: SourceCallback.DataResponse<T>) {
 }
 
 fun Completable.execute(callback: SourceCallback.StateResponse) {
-    callback.showProgress()
-    subscribe({
-        callback.hideProgress()
-        callback.onSuccess()
-        callback.onFinish()
-    }) {
-        callback.hideProgress()
-        callback.onFailed(it.message!!)
-        callback.onFinish()
-    }
+    doOnSubscribe { callback.showProgress() }
+        .doOnTerminate { callback.hideProgress() }
+        .subscribe({
+            callback.onSuccess()
+            callback.onFinish()
+        }) {
+            callback.onFailed(it.message!!)
+            callback.onFinish()
+        }
 }
